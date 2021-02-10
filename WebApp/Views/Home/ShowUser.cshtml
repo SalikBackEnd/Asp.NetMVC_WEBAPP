@@ -1,0 +1,48 @@
+﻿@model WebApp.Models.User
+
+@{
+    ViewBag.Title = "ShowUser";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div>
+    <h3>@Html.DisplayNameFor(model => model.Username)'s Details</h3>
+    <hr />
+    @if (ViewBag.result != null)
+    {
+        string result = ViewBag.result;
+
+        // get partialview from Alert method in MsgAlerts Controller
+        Html.RenderAction("Alert", "MsgAlerts", new { msg = result });
+
+    }
+   
+    <table class="table table-hover">
+        <tbody>
+            <tr>
+                <th scope="row">@Html.DisplayNameFor(model => model.Username)</th>
+                <td> @Html.DisplayFor(model => model.Username)</td>
+                
+            </tr>
+            <tr>
+                <th scope="row">@Html.DisplayNameFor(model => model.Email)</th>
+                <td>@Html.DisplayFor(model => model.Email)</td>
+                
+            </tr>
+            <tr>
+                <th scope="row">@Html.DisplayNameFor(model => model.Status)</th>
+                <td>@Html.DisplayFor(model => model.Status)</td>
+            </tr>
+            <tr>
+                <td>@Html.ActionLink("Edit Password", "EditPassword", new { id = Model.Id }, new { @class = "btn btn-warning" })</td>
+                <td>@Html.ActionLink("Back to List", "Index",null,new {@class="text-secondary" })</td>
+
+            </tr>
+        </tbody>
+    </table>
+    
+</div>
+
+    
+

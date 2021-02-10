@@ -1,0 +1,44 @@
+﻿@model WebApp.Models.Role
+@{
+    ViewBag.Title = "Add Roles";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<div class="row">
+    <div class="col-md-8">
+        <h3>@ViewBag.Title</h3>
+        <hr />
+        @{ if (ViewBag.result != null)
+            {
+                string result = ViewBag.result;
+                // get partialview from Alert method in MsgAlerts Controller
+                Html.RenderAction("Alert", "MsgAlerts", new { msg = result });
+
+            }
+        }
+        <section id="loginForm" class="d-flex justify-content-center">
+            @using (Html.BeginForm("AddRoles", "Home", new { ReturnUrl = Request.QueryString["ReturnUrl"] }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            {
+                @Html.AntiForgeryToken()
+
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    @Html.Label("Name", new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.Name, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Create" class="btn btn-default" />
+                    </div>
+                </div>
+            }
+        </section>
+    </div>
+
+</div>

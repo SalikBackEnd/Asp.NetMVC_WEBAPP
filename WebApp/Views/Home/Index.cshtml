@@ -1,0 +1,64 @@
+﻿@model IEnumerable<WebApp.Models.User>
+@{
+    ViewBag.Title = "Home Page";
+}
+@section styles{
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap.min.css" rel="stylesheet" />
+}
+@{ if (ViewBag.result != null)
+    {
+        string result = ViewBag.result;
+        // get partialview from Alert method in MsgAlerts Controller
+        Html.RenderAction("Alert", "MsgAlerts", new { msg = result });
+
+    }
+}
+<div class="row">
+    <div class="col-sm-12 p-2">
+        <h3>Users List</h3>
+        <hr />
+        <table class="table table-bordered table-striped" id="tblUser">
+            <thead>
+                <tr>
+                    
+                    <th scope="col">UserName</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Role</th>
+                    
+
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var user in Model)
+                {
+                     int userid = user.Id; 
+                    <tr>
+                    
+                    <td scope="col">@Html.ActionLink(user.Username, "ShowUser", "Home", new { id = userid }, new { @class = "text-secondary" })</td>
+                    <td scope="col">@Html.DisplayFor(m => user.Email)</td>
+                    <td scope="col">@Html.DisplayFor(m => user.Status)</td>
+                    <td scope="col">@Html.DisplayFor(m => user.UserRoles.FirstOrDefault().Role.Name)</td>
+                    
+                    </tr>
+                    }
+            </tbody>
+        </table>
+    </div>
+</div>
+@section scripts{
+    <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap.min.js"></script>
+    <script>
+
+        $(document).ready(function () {
+            bindDatatable();
+        });
+
+        function bindDatatable() {
+            datatable = $('#tblUser')
+                .DataTable();
+        }
+    </script>
+}

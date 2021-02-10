@@ -1,0 +1,88 @@
+﻿@model IEnumerable<WebApp.Models.HistoryMark>
+
+@{
+    ViewBag.Title = "MarkStatus";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    int userid = ViewBag.UserId;
+
+
+
+
+}
+
+<h3>Mark Status</h3>
+<hr />
+<p>@ViewBag.Error</p>
+@{ if (ViewBag.result != null)
+    {
+        string result = ViewBag.result;
+        // get partialview from Alert method in MsgAlerts Controller
+        Html.RenderAction("Alert", "MsgAlerts", new { msg = result });
+
+    }
+}
+@section styles{
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap.min.css" rel="stylesheet" />
+}
+<p>
+
+
+    @Html.ActionLink("Mark Active/InActive", "Mark", new { id = userid }, new { @class = "btn btn-success" })
+
+</p>
+<div class="row">
+    <div class="col-sm-12 p-2">
+       
+        <table class="table table-bordered table-striped" id="tblMarks">
+            <thead>
+                <tr>
+
+                    <th scope="col">Action Date</th>
+                    <th scope="col">Action Time</th>
+                    <th scope="col">Active</th>
+                    
+
+
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var mark in Model)
+                {
+
+                    string badgeclass = "badge badge-danger";
+                    string text = "In-Active";
+
+                    if (mark.Active == true)
+                    {
+                        badgeclass = "badge badge-success";
+                        text = "Active";
+
+                    }
+                    <tr>
+
+                        <td scope="col">@Html.DisplayFor(m=>mark.ActionDate.Date)</td>
+                        <td scope="col">@Html.DisplayFor(m=>mark.ActionTime)</td>
+                        <td scope="col"><h6><span class="@badgeclass">@text</span></h6></td>
+
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+@section scripts{
+    <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap.min.js"></script>
+    <script>
+
+        $(document).ready(function () {
+            bindDatatable();
+        });
+
+        function bindDatatable() {
+            datatable = $('#tblMarks')
+                .DataTable();
+        }
+    </script>
+}

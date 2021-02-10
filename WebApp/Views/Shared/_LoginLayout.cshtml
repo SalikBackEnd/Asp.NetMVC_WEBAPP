@@ -1,0 +1,51 @@
+﻿
+@{
+    ViewBag.Title = "Login";
+}
+
+<!DOCTYPE html>
+<html lang="zxx">
+
+<head>
+    <title>@ViewBag.Title</title>
+    <!-- Meta tag Keywords -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8" />
+    
+    <!-- //Meta tag Keywords -->
+    <link href="//fonts.googleapis.com/css2?family=Karla:wght@400;700&display=swap" rel="stylesheet">
+   @Styles.Render("~/Content/css/style")
+</head>
+
+<body>
+
+    <!-- form section start -->
+    <section class="w3l-workinghny-form">
+        <!-- /form -->
+        <div class="workinghny-form-grid">
+            <div class="wrapper">
+                <div class="logo">
+                    <h1><a class="brand-logo" href="index.html"><span>Working</span> Sign In</a></h1>
+                </div>
+                @RenderBody()
+
+            </div>
+        </div>
+        </div>
+        <!-- //form -->
+        <!-- copyright-->
+        <div class="copyright text-center">
+            <div class="wrapper">
+                <p class="copy-footer-29">&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+                </p>
+            </div>
+        </div>
+        <!-- //copyright-->
+    </section>
+
+
+
+</body>
+</html>
+
+

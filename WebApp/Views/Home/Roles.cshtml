@@ -1,0 +1,47 @@
+﻿@model IEnumerable<WebApp.Models.Role>
+@{
+    ViewBag.Title = "Roles";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section styles{
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap.min.css" rel="stylesheet" />
+}
+<div class="row">
+    <div class="col-sm-12 p-2">
+        <h3>Roles</h3>
+        <hr />
+        <table class="table table-bordered table-striped" id="tblrole">
+            <thead>
+                <tr>
+                    <th scope="col">RoleName</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var role in Model)
+                {
+
+                    <tr>
+                        <td scope="col">@Html.DisplayFor(m => role.Name)</td>
+
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+@section scripts{
+    <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap.min.js"></script>
+    <script>
+
+        $(document).ready(function () {
+            bindDatatable();
+        });
+
+        function bindDatatable() {
+            datatable = $('#tblrole')
+                .DataTable();
+        }
+    </script>
+}
